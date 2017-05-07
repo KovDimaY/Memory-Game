@@ -1,5 +1,5 @@
 var ALPHABET = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-var COLORS = ["Blue", "Red", "White", "Black", "Yellow", "Lime", "Aqua", "Green", "DarkViolet", "Chocolate", "Grey", "Magenta", "SaddleBrown", "OrangeRed", "DarkCyan"];
+var COLORS = ["Blue", "Red", "White", "Black", "Yellow", "Lime", "Aqua", "Green", "DarkViolet", "Bisque", "Grey", "Magenta", "SaddleBrown", "Orange", "DarkCyan"];
 
 var memory_array = [];
 var memory_values = [];
@@ -90,10 +90,10 @@ function memoryFlipTile(tile,val){
 	var openBackground = '#FFF';
 	var openText = val;
 	if (globalGameMode == "colors") {
-		openBackground = COLORS[val];
+		openBackground = COLORS[val-1];
 		openText = "";
 	}
-	
+
 	if(tile.innerHTML == "" && memory_values.length < 2){
 		tile.style.background = openBackground;
 		tile.innerHTML = openText;
