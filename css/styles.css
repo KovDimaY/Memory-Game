@@ -7,6 +7,9 @@ h1 {
 .title {
 	text-align: center;
 }
+.timer {
+	text-align: center;
+}
 div#memory_board {
 	background:#CCC;
 	border:#999 1px solid;

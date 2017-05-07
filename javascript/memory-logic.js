@@ -2,6 +2,7 @@ var memory_array = [];
 var memory_values = [];
 var memory_tile_ids = [];
 var tiles_flipped = 0;
+var timer;
 
 Array.prototype.memory_tile_shuffle = function(){
     var i = this.length, j, temp;
@@ -34,6 +35,9 @@ function generateData(numberOfElements){
 
 function newBoard(){
 	var board = document.getElementById('memory_board');
+	var options = document.getElementById('difficultySelector');
+	options.style.display = 'none';
+	board.style.display = 'block';
 	board.style.height = 10 + memory_array.length/6 *132 + "px";
 
 	tiles_flipped = 0;
@@ -43,6 +47,7 @@ function newBoard(){
 		output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
 	}
 	board.innerHTML = output;
+	timer = setInterval(setTime, 1000);
 }
 
 function memoryFlipTile(tile,val){
@@ -62,9 +67,7 @@ function memoryFlipTile(tile,val){
             	memory_tile_ids = [];
 				// Check to see if the whole board is cleared
 				if(tiles_flipped == memory_array.length){
-					alert("Board cleared... generating new board");
-					document.getElementById('memory_board').innerHTML = "";
-					newBoard();
+					winGameSubroutine();
 				}
 			} else {
 				function flip2Back(){
@@ -83,4 +86,29 @@ function memoryFlipTile(tile,val){
 			}
 		}
 	}
+}
+
+function winGameSubroutine() {
+	var timeString = "";
+	if (parseInt(totalSeconds/3600) == 1) {
+		timeString += "1 hour, ";
+	} else if (parseInt(totalSeconds/3600) != 0){
+		timeString += parseInt(totalSeconds/3600) + " hours, ";
+	}
+	if (parseInt(totalSeconds/60)%60 == 1) {
+		timeString += parseInt(totalSeconds/60)%60 + " minute, ";
+	} else if (parseInt(totalSeconds/60)%60 != 0) {
+		timeString += parseInt(totalSeconds/60)%60 + " minutes, ";
+	}
+	if (totalSeconds%60 == 1) {
+		timeString += totalSeconds%60 + " second";
+	} else if (totalSeconds%60 != 1) {
+		timeString += totalSeconds%60 + " seconds";
+	}
+	clearInterval(timer);
+	totalSeconds = 0;
+	alert("Congratulations! Board cleared! \nYour time is " + timeString + " for " + memory_array.length/2 + 
+			" pairs. \n\nPress \"OK\" button to start a new game.");
+	document.getElementById('memory_board').innerHTML = "";
+	newBoard();
 }
