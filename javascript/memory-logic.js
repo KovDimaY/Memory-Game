@@ -1,10 +1,12 @@
 var ALPHABET = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+var COLORS = ["Blue", "Red", "White", "Black", "Yellow", "Lime", "Aqua", "Green", "DarkViolet", "Chocolate", "Grey", "Magenta", "SaddleBrown", "OrangeRed", "DarkCyan"];
 
 var memory_array = [];
 var memory_values = [];
 var memory_tile_ids = [];
 var tiles_flipped = 0;
 var globalTimer;
+var globalGameMode;
 
 Array.prototype.memory_tile_shuffle = function(){
     var i = this.length, j, temp;
@@ -18,9 +20,9 @@ Array.prototype.memory_tile_shuffle = function(){
 
 function startGame(){
 	var numElements = readNumberOfElements();
-	var typeElements = readTypeOfElements();
+	globalGameMode = readTypeOfElements();
 
-	if (typeElements == "characters") {
+	if (globalGameMode == "characters") {
 		generateCharData(numElements);
 	} else {
 		generateNumericData(numElements);
@@ -85,9 +87,16 @@ function newBoard(){
 }
 
 function memoryFlipTile(tile,val){
+	var openBackground = '#FFF';
+	var openText = val;
+	if (globalGameMode == "colors") {
+		openBackground = COLORS[val];
+		openText = "";
+	}
+	
 	if(tile.innerHTML == "" && memory_values.length < 2){
-		tile.style.background = '#FFF';
-		tile.innerHTML = val;
+		tile.style.background = openBackground;
+		tile.innerHTML = openText;
 		if(memory_values.length == 0){
 			memory_values.push(val);
 			memory_tile_ids.push(tile.id);
