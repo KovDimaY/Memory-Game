@@ -1,8 +1,10 @@
+var ALPHABET = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+
 var memory_array = [];
 var memory_values = [];
 var memory_tile_ids = [];
 var tiles_flipped = 0;
-var timer;
+var globalTimer;
 
 Array.prototype.memory_tile_shuffle = function(){
     var i = this.length, j, temp;
@@ -14,6 +16,17 @@ Array.prototype.memory_tile_shuffle = function(){
     }
 }
 
+function startGame(){
+	var numElements = readNumberOfElements();
+	var typeElements = readTypeOfElements();
+
+	if (typeElements == "characters") {
+		generateCharData(numElements);
+	} else {
+		generateNumericData(numElements);
+	}
+}
+
 function readNumberOfElements(){
 	var radioBtns = document.getElementsByName("difficulty");
 	for(i = 0; i < radioBtns.length; i++) {
@@ -21,10 +34,20 @@ function readNumberOfElements(){
 			var numElements = radioBtns[i].value;
 		}
 	}
-	generateData(numElements);
+	return numElements;
 }
 
-function generateData(numberOfElements){
+function readTypeOfElements(){
+	var radioBtns = document.getElementsByName("mode");
+	for(i = 0; i < radioBtns.length; i++) {
+		if (radioBtns[i].checked){
+			var typeElements = radioBtns[i].value;
+		}
+	}
+	return typeElements;
+}
+
+function generateNumericData(numberOfElements){
 	memory_array = [];
 	for(i = 0; i < numberOfElements/2; i++) {
 		memory_array.push(i+1);
@@ -33,10 +56,21 @@ function generateData(numberOfElements){
 	newBoard();
 }
 
+function generateCharData(numberOfElements){
+	memory_array = [];
+	for(i = 0; i < numberOfElements/2; i++) {
+		memory_array.push(ALPHABET[i]);
+		memory_array.push(ALPHABET[i]);
+	}
+	newBoard();
+}
+
 function newBoard(){
 	var board = document.getElementById('memory_board');
-	var options = document.getElementById('difficultySelector');
-	options.style.display = 'none';
+	var options = document.getElementsByClassName('options');
+	var timer = document.getElementById('timer');
+	options[0].style.display = 'none';
+	timer.style.display = 'block';
 	board.style.display = 'block';
 	board.style.height = 10 + memory_array.length/6 *132 + "px";
 
@@ -47,7 +81,7 @@ function newBoard(){
 		output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
 	}
 	board.innerHTML = output;
-	timer = setInterval(setTime, 1000);
+	globalTimer = setInterval(setTime, 1000);
 }
 
 function memoryFlipTile(tile,val){
@@ -105,10 +139,18 @@ function winGameSubroutine() {
 	} else if (totalSeconds%60 != 1) {
 		timeString += totalSeconds%60 + " seconds";
 	}
-	clearInterval(timer);
-	totalSeconds = 0;
+	clearInterval(globalTimer);
+	totalSeconds = -1;
+	setTime();
 	alert("Congratulations! Board cleared! \nYour time is " + timeString + " for " + memory_array.length/2 + 
 			" pairs. \n\nPress \"OK\" button to start a new game.");
-	document.getElementById('memory_board').innerHTML = "";
-	newBoard();
+
+	var board = document.getElementById('memory_board');
+	var timer = document.getElementById('timer');
+	var options = document.getElementsByClassName('options');
+
+	board.innerHTML = "";
+	board.style.display = 'none';
+	timer.style.display = 'none';
+	options[0].style.display = 'block';
 }

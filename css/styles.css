@@ -7,8 +7,9 @@ h1 {
 .title {
 	text-align: center;
 }
-.timer {
+#timer {
 	text-align: center;
+	margin-bottom: 10px;
 }
 div#memory_board {
 	background:#CCC;
@@ -30,14 +31,13 @@ div#memory_board > div {
 	cursor:pointer;
 	text-align:center;
 }
-#difficultySelector {
+.options {
 	text-align: center;
 }
-#diffRadioBtns {
+.radioBtnsContainer {
 	margin-left: -50px;
 }
-.difficulty {
-	display: inline-block;
+.radioBtn {
 	margin-left: 50px;
 	margin-right: 5px;
 }

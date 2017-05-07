@@ -2,7 +2,7 @@
 var hoursLabel = document.getElementById("hours");
 var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.getElementById("seconds");
-var totalSeconds = 60*60;
+var totalSeconds = 0;
 
 function setTime()
 {
@@ -10,7 +10,6 @@ function setTime()
     secondsLabel.innerHTML = pad(totalSeconds%60);
     minutesLabel.innerHTML = pad(parseInt(totalSeconds/60)%60);
     hoursLabel.innerHTML = pad(parseInt(totalSeconds/3600));
-    console.log("timer");
 }
 
 function pad(val)

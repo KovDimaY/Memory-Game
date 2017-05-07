@@ -5,23 +5,36 @@
 <script src="javascript/memory-logic.js"></script>
 </head>
 <body>
+
 <div class="title">
 	<h1>Memory Game</h1>
 	<h4 id="author">by Dmytro Kovalenko</h4>
 </div>
-<div class="timer">
+
+<div id="timer" style="display: none;">
 	<label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
 </div>
-<div id="difficultySelector">
-	<h3>Choose a number of elements to play with</h3>
-	<form id="diffRadioBtns" action="">
-	  <input type="radio" class="difficulty" name="difficulty" value="12"> 12 elements
-	  <input type="radio" class="difficulty" name="difficulty" value="18"> 18 elements
-	  <input type="radio" class="difficulty" name="difficulty" value="24" checked> 24 elements
-	  <input type="radio" class="difficulty" name="difficulty" value="30"> 30 elements <br/><br/>	  
-	</form>
-	<button type="button" onclick="readNumberOfElements()">Start Game</button>
+
+<div class="options">
+	<div id="difficultySelector">
+		<h3>Choose a number of elements to play with</h3>
+		<form class="radioBtnsContainer" action="">
+		  <input type="radio" class="radioBtn" name="difficulty" value="12"> 12 elements
+		  <input type="radio" class="radioBtn" name="difficulty" value="18"> 18 elements
+		  <input type="radio" class="radioBtn" name="difficulty" value="24" checked> 24 elements
+		  <input type="radio" class="radioBtn" name="difficulty" value="30"> 30 elements <br/><br/>	  
+		</form>
+	</div>
+	<div id="modeSelector">
+		<h3>Choose a type of elements to play with</h3>
+		<form class="radioBtnsContainer" action="">
+		  <input type="radio" class="radioBtn" name="mode" value="numbers" checked> Numbers
+		  <input type="radio" class="radioBtn" name="mode" value="characters"> Characters <br/><br/>	  
+		</form>
+	</div>
+	<button type="button" onclick="startGame()">Start Game</button>
 </div>
+
 <div id="memory_board" style="display: none;"></div>
 
 <script src="javascript/timer.js"></script>
