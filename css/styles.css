@@ -1,7 +1,7 @@
 h1 {
 	margin-bottom: 5px;
 }
-h4 {
+#author {
 	margin-top: 0px;
 }
 .title {
@@ -26,4 +26,15 @@ div#memory_board > div {
 	font-size:64px;
 	cursor:pointer;
 	text-align:center;
+}
+#difficultySelector {
+	text-align: center;
+}
+#diffRadioBtns {
+	margin-left: -50px;
+}
+.difficulty {
+	display: inline-block;
+	margin-left: 50px;
+	margin-right: 5px;
 }

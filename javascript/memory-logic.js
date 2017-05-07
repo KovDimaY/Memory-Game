@@ -1,7 +1,8 @@
-var memory_array = ['1','1','2','2','3','3','4','4','5','5','6','6','7','7','8','8','9','9','10','10','11','11','12','12'];
+var memory_array = [];
 var memory_values = [];
 var memory_tile_ids = [];
 var tiles_flipped = 0;
+
 Array.prototype.memory_tile_shuffle = function(){
     var i = this.length, j, temp;
     while(--i > 0){
@@ -11,15 +12,39 @@ Array.prototype.memory_tile_shuffle = function(){
         this[i] = temp;
     }
 }
+
+function readNumberOfElements(){
+	var radioBtns = document.getElementsByName("difficulty");
+	for(i = 0; i < radioBtns.length; i++) {
+		if (radioBtns[i].checked){
+			var numElements = radioBtns[i].value;
+		}
+	}
+	generateData(numElements);
+}
+
+function generateData(numberOfElements){
+	memory_array = [];
+	for(i = 0; i < numberOfElements/2; i++) {
+		memory_array.push(i+1);
+		memory_array.push(i+1);
+	}
+	newBoard();
+}
+
 function newBoard(){
+	var board = document.getElementById('memory_board');
+	board.style.height = 10 + memory_array.length/6 *132 + "px";
+
 	tiles_flipped = 0;
 	var output = '';
     memory_array.memory_tile_shuffle();
 	for(var i = 0; i < memory_array.length; i++){
 		output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
 	}
-	document.getElementById('memory_board').innerHTML = output;
+	board.innerHTML = output;
 }
+
 function memoryFlipTile(tile,val){
 	if(tile.innerHTML == "" && memory_values.length < 2){
 		tile.style.background = '#FFF';
