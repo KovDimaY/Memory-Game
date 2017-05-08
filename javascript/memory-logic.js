@@ -91,9 +91,8 @@ function memoryFlipTile(tile,val){
 	var openText = val;
 	if (globalGameMode == "colors") {
 		openBackground = COLORS[val-1];
-		openText = "";
+		openText = "\n";
 	}
-
 	if(tile.innerHTML == "" && memory_values.length < 2){
 		tile.style.background = openBackground;
 		tile.innerHTML = openText;
