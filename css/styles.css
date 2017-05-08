@@ -1,5 +1,13 @@
+body {
+	font-family: sans-serif;
+	font-weight: normal;
+	margin: 10px;
+	color: #6d6c6c;
+	background-color: #eee;
+}
 h1 {
-	margin-bottom: 5px;
+	font-size: 40px;
+	margin-bottom: 10px;
 }
 #author {
 	margin-top: 0px;
@@ -10,6 +18,13 @@ h1 {
 #timer {
 	text-align: center;
 	margin-bottom: 10px;
+}
+.timer_label {
+	margin-right: 3px;
+	margin-left: 3px;
+}
+.card{
+	color: #444444;
 }
 div#memory_board {
 	background:#CCC;
@@ -33,11 +48,9 @@ div#memory_board > div {
 }
 .options {
 	text-align: center;
-}
-.radioBtnsContainer {
-	margin-left: -50px;
-}
-.radioBtn {
-	margin-left: 50px;
-	margin-right: 5px;
+	background: #e0e0e0;
+	height: 350px;
+    width: 80%;
+    min-width: 800px;
+    margin-left: 10%;
 }

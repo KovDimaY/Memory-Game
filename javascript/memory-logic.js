@@ -80,7 +80,7 @@ function newBoard(){
 	var output = '';
     memory_array.memory_tile_shuffle();
 	for(var i = 0; i < memory_array.length; i++){
-		output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
+		output += '<div id="tile_'+i+'" class="card" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
 	}
 	board.innerHTML = output;
 	globalTimer = setInterval(setTime, 1000);
