@@ -92,6 +92,9 @@ function memoryFlipTile(tile,val){
 	if (globalGameMode == "colors") {
 		openBackground = COLORS[val-1];
 		openText = "\n";
+	} else if (globalGameMode == "pictures") {
+		openBackground = 'url(images/paintings/picture_' + val + '.jpg) no-repeat';
+		openText = "\n";
 	}
 	if(tile.innerHTML == "" && memory_values.length < 2){
 		tile.style.background = openBackground;
