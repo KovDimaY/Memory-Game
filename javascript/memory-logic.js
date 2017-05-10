@@ -19,14 +19,11 @@ Array.prototype.memory_tile_shuffle = function(){
 }
 
 function startGame(){
-	var numElements = readNumberOfElements();
-	globalGameMode = readTypeOfElements();
-
-	if (globalGameMode == "characters") {
-		generateCharData(numElements);
-	} else {
-		generateNumericData(numElements);
-	}
+	var options = document.getElementsByClassName('options');
+	options[0].style.display = 'none';
+	loadingSimulation = setInterval(progressSim, 25);
+	setTimeout("document.getElementById('loader').style.display = 'block';", 75);
+	
 }
 
 function readNumberOfElements(){
@@ -69,9 +66,7 @@ function generateCharData(numberOfElements){
 
 function newBoard(){
 	var board = document.getElementById('memory_board');
-	var options = document.getElementsByClassName('options');
 	var timer = document.getElementById('timer');
-	options[0].style.display = 'none';
 	timer.style.display = 'block';
 	board.style.display = 'block';
 	board.style.height = 10 + memory_array.length/6 *132 + "px";

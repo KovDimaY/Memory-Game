@@ -54,3 +54,7 @@ div#memory_board > div {
     min-width: 800px;
     margin-left: 10%;
 }
+#loader {
+	text-align: center; 
+	margin-top: 100px;
+}
