@@ -22,10 +22,12 @@ function startGame(){
 	var options = document.getElementsByClassName('options');
 	options[0].style.display = 'none';
 	loadingSimulation = setInterval(progressSim, 25);
+	// we need timeout to do not see 100% loaded picture from previous game  
 	setTimeout("document.getElementById('loader').style.display = 'block';", 75);
 	
 }
 
+// detects how many tile will be on the game board
 function readNumberOfElements(){
 	var radioBtns = document.getElementsByName("difficulty");
 	for(i = 0; i < radioBtns.length; i++) {
@@ -36,6 +38,7 @@ function readNumberOfElements(){
 	return numElements;
 }
 
+// we are looking to the radio buttons to see what is the game mode
 function readTypeOfElements(){
 	var radioBtns = document.getElementsByName("mode");
 	for(i = 0; i < radioBtns.length; i++) {
@@ -46,6 +49,7 @@ function readTypeOfElements(){
 	return typeElements;
 }
 
+// we are generating values of the tiles to know if it is a pair or not
 function generateNumericData(numberOfElements){
 	memory_array = [];
 	for(i = 0; i < numberOfElements/2; i++) {
@@ -55,6 +59,7 @@ function generateNumericData(numberOfElements){
 	newBoard();
 }
 
+// we are generating characters to see them instead of numbers in chars mode
 function generateCharData(numberOfElements){
 	memory_array = [];
 	for(i = 0; i < numberOfElements/2; i++) {
@@ -64,6 +69,7 @@ function generateCharData(numberOfElements){
 	newBoard();
 }
 
+// generates a new board with data that was chosen from radio buttons
 function newBoard(){
 	var board = document.getElementById('memory_board');
 	var timer = document.getElementById('timer');
@@ -74,6 +80,8 @@ function newBoard(){
 	tiles_flipped = 0;
 	var output = '';
     memory_array.memory_tile_shuffle();
+
+    // generate all pairs of tiles with correct values
 	for(var i = 0; i < memory_array.length; i++){
 		output += '<div id="tile_'+i+'" class="flip3D" data-state="back" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')">';
 
@@ -91,11 +99,15 @@ function newBoard(){
 		output += '<div class="back card" style="background: url(images/tile_bg.jpg) no-repeat;"></div>';
 		output += '</div>';
 	}
+
+	// put this tiles inside the board
 	board.innerHTML = output;
 	globalTimer = setInterval(setTime, 1000);
 }
 
+// click on the tiles handler
 function memoryFlipTile(tile, val){
+	// do nothing if this tile is already flipped or two tiles are already flipped
 	if(tile.getAttribute("data-state") == "back" && memory_values.length < 2){
 		flipToFront(tile);
 		tile.setAttribute("data-state", "front");
@@ -116,12 +128,13 @@ function memoryFlipTile(tile, val){
 				}
 			} else {
 				function flip2Back(){
-				    // Flip the 2 tiles back over
+				    // find tiles that are flipped
 				    var tile_1 = document.getElementById(memory_tile_ids[0]);
 				    var tile_2 = document.getElementById(memory_tile_ids[1]);
 				    tile_1.setAttribute("data-state", "back");
 				    tile_2.setAttribute("data-state", "back");
 
+				    // flip them back over
 				    flipToBack(tile_1);
 					flipToBack(tile_2);
 
@@ -135,7 +148,8 @@ function memoryFlipTile(tile, val){
 	}
 }
 
-function winGameSubroutine() {
+// this is needed to show the winning message in a correct form
+function timeFormatting() {
 	var timeString = "";
 	if (parseInt(totalSeconds/3600) == 1) {
 		timeString += "1 hour, ";
@@ -152,32 +166,41 @@ function winGameSubroutine() {
 	} else if (totalSeconds%60 != 1) {
 		timeString += totalSeconds%60 + " seconds";
 	}
+	return timeString;
+}
+
+// shows message and reload the game
+function winGameSubroutine() {
 	clearInterval(globalTimer);
 	totalSeconds = -1;
 	setTime();
-	alert("Congratulations! Board cleared! \nYour time is " + timeString + " for " + memory_array.length/2 + 
+	alert("Congratulations! Board cleared! \nYour time is " + timeFormatting() + " for " + memory_array.length/2 + 
 			" pairs. \n\nPress \"OK\" button to start a new game.");
 
 	var board = document.getElementById('memory_board');
 	var timer = document.getElementById('timer');
 	var options = document.getElementsByClassName('options');
 
+	// delete all tiles and show options menu
 	board.innerHTML = "";
 	board.style.display = 'none';
 	timer.style.display = 'none';
 	options[0].style.display = 'block';
 }
 
+// this variable is needed to make a flip for two tiles in a row
 var flipsCounter = 0;
 function flipToFront(tile) {
 	var childBack = tile.children[0];
 	var childFront = tile.children[1];
+	// detects if this is first flip or the second
 	if (flipsCounter % 2 == 0) {
 		childFront.style.transition = "transform .5s linear 0s";
 		childBack.style.transition = "transform .5s linear 0s";
 		childBack.style.transform = "perspective( 600px ) rotateY( 0deg )";
 		childFront.style.transform = "perspective( 600px ) rotateY( -180deg )";
 	} else {
+		// do additional flip (flip back) to be able to do the flip again
 		childBack.style.transform = "perspective( 600px ) rotateY( 0deg )";
 		childFront.style.transform = "perspective( 600px ) rotateY( -180deg )";
 		childFront.style.transition = "transform .5s linear 0s";
@@ -188,6 +211,7 @@ function flipToFront(tile) {
 	flipsCounter++;
 }
 
+// returns tile in the start stage
 function flipToBack(tile) {
 	var childBack = tile.children[0];
 	var childFront = tile.children[1];
