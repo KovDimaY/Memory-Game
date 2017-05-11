@@ -75,25 +75,30 @@ function newBoard(){
 	var output = '';
     memory_array.memory_tile_shuffle();
 	for(var i = 0; i < memory_array.length; i++){
-		output += '<div id="tile_'+i+'" class="card" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
+		output += '<div id="tile_'+i+'" class="flip3D" data-state="back" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')">';
+
+		var frontBackground = '#FFF';
+		var frontText = memory_array[i];
+		if (globalGameMode == "colors") {
+			frontBackground = COLORS[memory_array[i]-1];
+			frontText = "\n";
+		} else if (globalGameMode == "pictures") {
+			frontBackground = 'url(images/paintings/picture_' + memory_array[i] + '.jpg) no-repeat';
+			frontText = "\n";
+		}
+
+		output += '<div class="front card" style="background: ' + frontBackground + '">' + frontText + '</div>';
+		output += '<div class="back card" style="background: url(images/tile_bg.jpg) no-repeat;"></div>';
+		output += '</div>';
 	}
 	board.innerHTML = output;
 	globalTimer = setInterval(setTime, 1000);
 }
 
-function memoryFlipTile(tile,val){
-	var openBackground = '#FFF';
-	var openText = val;
-	if (globalGameMode == "colors") {
-		openBackground = COLORS[val-1];
-		openText = "\n";
-	} else if (globalGameMode == "pictures") {
-		openBackground = 'url(images/paintings/picture_' + val + '.jpg) no-repeat';
-		openText = "\n";
-	}
-	if(tile.innerHTML == "" && memory_values.length < 2){
-		tile.style.background = openBackground;
-		tile.innerHTML = openText;
+function memoryFlipTile(tile, val){
+	if(tile.getAttribute("data-state") == "back" && memory_values.length < 2){
+		flipToFront(tile);
+		tile.setAttribute("data-state", "front");
 		if(memory_values.length == 0){
 			memory_values.push(val);
 			memory_tile_ids.push(tile.id);
@@ -114,15 +119,17 @@ function memoryFlipTile(tile,val){
 				    // Flip the 2 tiles back over
 				    var tile_1 = document.getElementById(memory_tile_ids[0]);
 				    var tile_2 = document.getElementById(memory_tile_ids[1]);
-				    tile_1.style.background = 'url(images/tile_bg.jpg) no-repeat';
-            	    tile_1.innerHTML = "";
-				    tile_2.style.background = 'url(images/tile_bg.jpg) no-repeat';
-            	    tile_2.innerHTML = "";
+				    tile_1.setAttribute("data-state", "back");
+				    tile_2.setAttribute("data-state", "back");
+
+				    flipToBack(tile_1);
+					flipToBack(tile_2);
+
 				    // Clear both arrays
 				    memory_values = [];
             	    memory_tile_ids = [];
 				}
-				setTimeout(flip2Back, 700);
+				setTimeout(flip2Back, 1500);
 			}
 		}
 	}
@@ -160,3 +167,63 @@ function winGameSubroutine() {
 	timer.style.display = 'none';
 	options[0].style.display = 'block';
 }
+
+var flipsCounter = 0;
+function flipToFront(tile) {
+	var childBack = tile.children[0];
+	var childFront = tile.children[1];
+	if (flipsCounter % 2 == 0) {
+		childFront.style.transition = "transform .5s linear 0s";
+		childBack.style.transition = "transform .5s linear 0s";
+		childBack.style.transform = "perspective( 600px ) rotateY( 0deg )";
+		childFront.style.transform = "perspective( 600px ) rotateY( -180deg )";
+	} else {
+		childBack.style.transform = "perspective( 600px ) rotateY( 0deg )";
+		childFront.style.transform = "perspective( 600px ) rotateY( -180deg )";
+		childFront.style.transition = "transform .5s linear 0s";
+		childBack.style.transition = "transform .5s linear 0s";
+		childBack.style.transform = "perspective( 600px ) rotateY( 0deg )";
+		childFront.style.transform = "perspective( 600px ) rotateY( -180deg )";
+	}
+	flipsCounter++;
+}
+
+function flipToBack(tile) {
+	var childBack = tile.children[0];
+	var childFront = tile.children[1];
+	childFront.style.transition = "transform .5s linear 0s";
+	childBack.style.transition = "transform .5s linear 0s";
+	childBack.style.transform = "perspective( 600px ) rotateY( 180deg )";
+	childFront.style.transform = "perspective( 600px ) rotateY( 0deg )";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
