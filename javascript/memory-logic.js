@@ -171,10 +171,11 @@ function timeFormatting() {
 
 // shows message and reload the game
 function winGameSubroutine() {
+	var time = timeFormatting();
 	clearInterval(globalTimer);
 	totalSeconds = -1;
 	setTime();
-	alert("Congratulations! Board cleared! \nYour time is " + timeFormatting() + " for " + memory_array.length/2 + 
+	alert("Congratulations! Board cleared! \nYour time is " + time + " for " + memory_array.length/2 + 
 			" pairs. \n\nPress \"OK\" button to start a new game.");
 
 	var board = document.getElementById('memory_board');
