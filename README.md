@@ -1,6 +1,7 @@
 # Memory-Game
 
 This is a classical Memory Game created with pure Javascript to practice DOM manipulations.
+
 You can try it live here: https://kovdimay.github.io/Memory-Game/
 
 ### Rules
