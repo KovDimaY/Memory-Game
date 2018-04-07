@@ -2,6 +2,8 @@
 
 This is a classical Memory Game created with pure Javascript to practice DOM manipulations.
 
+You can try it live here: https://kovdimay.github.io/Memory-Game/
+
 ### Rules
 Memory game is a game that requires players to match similar elements. Participants need to find a match for a number, character, color, picture, etc. For example, there are 30 word cards, composed of 15 pairs, face down in random order. Player turns over two cards at a time, if cards have the same value player can keep them turned face up, if not - they have to be turned face down again. The goal is to turn all cards face up, matching pairs using memory.
 
