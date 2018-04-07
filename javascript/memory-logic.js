@@ -18,13 +18,21 @@ Array.prototype.memory_tile_shuffle = function(){
     }
 }
 
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
 function startGame(){
 	var options = document.getElementsByClassName('options');
 	options[0].style.display = 'none';
 	loadingSimulation = setInterval(progressSim, 25);
-	// we need timeout to do not see 100% loaded picture from previous game  
+	// we need timeout to do not see 100% loaded picture from previous game
 	setTimeout("document.getElementById('loader').style.display = 'block';", 75);
-	
 }
 
 // detects how many tile will be on the game board
@@ -175,7 +183,7 @@ function winGameSubroutine() {
 	clearInterval(globalTimer);
 	totalSeconds = -1;
 	setTime();
-	alert("Congratulations! Board cleared! \nYour time is " + time + " for " + memory_array.length/2 + 
+	alert("Congratulations! Board cleared! \nYour time is " + time + " for " + memory_array.length/2 +
 			" pairs. \n\nPress \"OK\" button to start a new game.");
 
 	var board = document.getElementById('memory_board');
@@ -221,34 +229,3 @@ function flipToBack(tile) {
 	childBack.style.transform = "perspective( 600px ) rotateY( 180deg )";
 	childFront.style.transform = "perspective( 600px ) rotateY( 0deg )";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -50,6 +50,16 @@ div#memory_board {
   width: 100%;
   min-width: 800px;
 }
+.radioBtnsContainer {
+	margin-bottom: 50px;
+	text-align: center;
+    display: -webkit-inline-box;
+}
+.radioBtnsContainer-highstores {
+	margin-bottom: 20px;
+	text-align: center;
+    display: -webkit-inline-box;
+}
 #loader {
 	text-align: center; 
 	margin-top: 100px;

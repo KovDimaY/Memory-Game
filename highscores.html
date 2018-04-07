@@ -19,9 +19,10 @@
 </div>
 
 <div class="options">
-	<br><br>
+	<br>
 	<div id="difficultySelector">
-		<form class="radioBtnsContainer" action="">
+		<h3>Choose the mode you want to see the results for:</h3>
+		<form class="radioBtnsContainer-highstores" action="">
 			<div>
 				<input type="radio" name="difficulty" id="difficulty1" class="radio" value="12"/>
 				<label for="difficulty1">12 elements</label>
@@ -37,12 +38,31 @@
 			<div>
 				<input type="radio" name="difficulty" id="difficulty4" class="radio" value="30"/>
 				<label for="difficulty4">30 elements</label>
-			</div> 
+			</div>
 		</form>
 	</div>
 	<div id="modeSelector">
+		<form class="radioBtnsContainer-highstores" action="">
+			<div>
+				<input type="radio" name="mode" id="mode1" class="radio" value="numbers"/>
+				<label for="mode1">Numbers</label>
+			</div>
+			<div>
+				<input type="radio" name="mode" id="mode2" class="radio" value="characters"/>
+				<label for="mode2">Characters</label>
+			</div>
+			<div>
+				<input type="radio" name="mode" id="mode3" class="radio" value="colors"/>
+				<label for="mode3">Colors</label>
+			</div>
+			<div>
+				<input type="radio" name="mode" id="mode4" class="radio" value="pictures" checked/>
+				<label for="mode4">Pictures</label>
+			</div>
+		</form>
 	</div>
-	<br><br>
+	<br>
+	<div id="highscores-data"></div>
 	<a type="button" class="btn-highscores" href="index.html"><i class="far fa-arrow-alt-circle-left"></i> Back</a>
 </div>
 
@@ -52,7 +72,6 @@
 
 <div id="memory_board" style="display: none;"></div>
 
-<script src="javascript/timer.js"></script>
-<script src="javascript/loader.js"></script>
+<script src="javascript/highscores.js"></script>
 </body>
 </html>
