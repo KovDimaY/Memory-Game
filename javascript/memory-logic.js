@@ -178,13 +178,33 @@ function timeFormatting() {
 }
 
 // shows message and reload the game
+function getNameFromPromt(time, size) {
+  var result = prompt("Congratulations! Board cleared! \nYour time is " + time + " for " + size +
+			" pairs. \n\nPlease enter your name to save your score and start a new game.");
+	if (result === null) return null;
+  var validName = true;
+  if (!result.trim()) {
+    validName = confirm("You have provided an empty name! \n\nPress \"Ok\" button if you want to submit an empty name.");
+  }
+  if (validName) {
+    return result.trim();
+  }
+  return getNameFromPromt(time, size);
+}
+
 function winGameSubroutine() {
 	var time = timeFormatting();
+  var result = totalSeconds;
+  var size = memory_array.length;
 	clearInterval(globalTimer);
 	totalSeconds = -1;
 	setTime();
-	alert("Congratulations! Board cleared! \nYour time is " + time + " for " + memory_array.length/2 +
-			" pairs. \n\nPress \"OK\" button to start a new game.");
+  var name = getNameFromPromt(time, size/2);
+  if (name) {
+    var key = guid();
+    var value = JSON.stringify({ name, result, size, mode:globalGameMode});
+    window.localStorage.setItem(key, value);
+  }
 
 	var board = document.getElementById('memory_board');
 	var timer = document.getElementById('timer');

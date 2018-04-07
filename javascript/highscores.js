@@ -16,6 +16,25 @@ function getHighstores(mode, size) {
   return filteredScores;
 }
 
+// this is needed to show the winning message in a correct form for highscores table
+function getResultTimeFormat(timeInSeconds) {
+  var timeString = "";
+  if (parseInt(timeInSeconds/3600) > 0) {
+		timeString += parseInt(timeInSeconds/3600) + "h, ";
+	}
+	if (parseInt(timeInSeconds/60)%60 > 0) {
+		timeString += parseInt(timeInSeconds/60)%60 + "m, ";
+	}
+	if (timeInSeconds%60 > 0) {
+		timeString += timeInSeconds%60 + "s";
+	}
+  const result = timeString.trim();
+  if (result[result.length - 1] === ",") {
+    return result.substring(0,result.length - 1);
+  }
+	return result;
+}
+
 function updateHighstore() {
   const mode = readTypeOfElements();
   const size = readNumberOfElements();
@@ -24,13 +43,13 @@ function updateHighstore() {
   const data = document.getElementById("highscores-data");
   if (highscores.length > 0) {
     let table = '<table class="highscore-records">';
-    table += '<tr><th>Position</th><th>Name</th><th>Result</th></tr>';
+    table += '<tr><th class="record-position">Position</th>';
+    table += '<th class="record-name">Name</th>';
+    table += '<th class="record-result">Result</th></tr>';
     highscores.forEach(function(element, index) {
-      table += '<tr>';
-      table += '<td>' + (index + 1) + '</td>';
+      table += '<tr><td class="record-position">' + (index + 1) + '</td>';
       table += '<td class="record-name">' + element.name + '</td>';
-      table += '<td>' + element.result + '</td>';
-      table += '</tr>';
+      table += '<td class="record-result">' + getResultTimeFormat(element.result) + '</td></tr>';
     });
     table += '</table>';
     data.innerHTML = table;
