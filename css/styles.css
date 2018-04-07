@@ -1,9 +1,11 @@
 body {
 	font-family: sans-serif;
 	font-weight: normal;
-	margin: 10px;
 	color: #6d6c6c;
 	background-color: #eee;
+	width: 80%;
+  min-width: 800px;
+  margin-left: 10%;
 }
 h1 {
 	font-size: 40px;
@@ -45,9 +47,8 @@ div#memory_board {
 	text-align: center;
 	background: #e0e0e0;
 	height: 350px;
-    width: 80%;
-    min-width: 800px;
-    margin-left: 10%;
+  width: 100%;
+  min-width: 800px;
 }
 #loader {
 	text-align: center; 
@@ -65,7 +66,7 @@ div#memory_board {
 	backface-visibility: hidden;
 	transition: transform .5s linear 0s;
 	margin-left: -20px;
-    margin-top: -20px;
+  margin-top: -20px;
 }
 .flip3D > .back{
 	position:absolute;
@@ -73,5 +74,5 @@ div#memory_board {
 	backface-visibility: hidden;
 	transition: transform .5s linear 0s;
 	margin-left: -20px;
-    margin-top: -20px;
+  margin-top: -20px;
 }
