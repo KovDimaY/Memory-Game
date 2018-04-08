@@ -2,7 +2,7 @@ var canvasContext = document.getElementById('loader-canvas').getContext('2d');
 var amountLoaded = 0;
 var start = 4.72;
 var canvasWidth = canvasContext.canvas.width;
-var canvasHeight = canvasContext.canvas.height; 
+var canvasHeight = canvasContext.canvas.height;
 var difference;
 
 function progressSim(){
@@ -18,11 +18,11 @@ function progressSim(){
 	canvasContext.arc(124, 125, 100, start, difference/10+start, false);
 	canvasContext.stroke();
 	if(amountLoaded >= 100){
-  		document.getElementById('loader').style.display = 'none';
+  	document.getElementById('loader').style.display = 'none';
 		amountLoaded = 0;
 		difference = 0;
 		clearTimeout(loadingSimulation);
-	    var numElements = readNumberOfElements();
+	  var numElements = readNumberOfElements();
 		globalGameMode = readTypeOfElements();
 
 		if (globalGameMode == "characters") {

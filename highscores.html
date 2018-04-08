@@ -2,27 +2,27 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/radioBtns.css">
-<link rel="stylesheet" type="text/css" href="css/button-start.css">
 <link rel="stylesheet" type="text/css" href="css/button-highscores.css">
 <link rel="stylesheet" type="text/css" href="css/styles.css">
+<link rel="stylesheet" type="text/css" href="css/fontawesome/css/fontawesome-all.css">
 <script src="javascript/memory-logic.js"></script>
 </head>
 <body>
 
 <div class="title">
-	<h1>Memory Game</h1>
-	<h4 id="author">by Dmytro Kovalenko</h4>
+	<h1>Highscores</h1>
+	<br><br>
 </div>
 
 <div id="timer" style="display: none;">
 	<label id="hours" class="timer_label">00</label>:<label id="minutes" class="timer_label">00</label>:<label id="seconds" class="timer_label">00</label>
 </div>
 
-<div class="options">
-	<br><br>
+<div class="options-highstores">
+	<br>
 	<div id="difficultySelector">
-		<h3>Choose a number of elements to play with</h3>
-		<form class="radioBtnsContainer" action="">
+		<h3>Choose the mode you want to see the results for:</h3>
+		<form class="radioBtnsContainer-highstores" action="">
 			<div>
 				<input type="radio" name="difficulty" id="difficulty1" class="radio" value="12"/>
 				<label for="difficulty1">12 elements</label>
@@ -38,12 +38,11 @@
 			<div>
 				<input type="radio" name="difficulty" id="difficulty4" class="radio" value="30"/>
 				<label for="difficulty4">30 elements</label>
-			</div> 
+			</div>
 		</form>
 	</div>
 	<div id="modeSelector">
-		<h3>Choose a type of elements to play with</h3>
-		<form class="radioBtnsContainer" action="">
+		<form class="radioBtnsContainer-highstores" action="">
 			<div>
 				<input type="radio" name="mode" id="mode1" class="radio" value="numbers"/>
 				<label for="mode1">Numbers</label>
@@ -59,21 +58,14 @@
 			<div>
 				<input type="radio" name="mode" id="mode4" class="radio" value="pictures" checked/>
 				<label for="mode4">Pictures</label>
-			</div>		  
+			</div>
 		</form>
 	</div>
-	<br><br>
-	<button type="button" class="btn-start" onclick="startGame()">Start Game</button>
-	<a type="button" class="btn-highscores" href="highscores.html">Highscores</a>
+	<br>
+	<div id="highscores-data"></div>
+	<a type="button" class="btn-highscores" href="index.html"><i class="far fa-arrow-alt-circle-left"></i> Back</a>
 </div>
 
-<div id="loader" style="display: none;">
-	<canvas id="loader-canvas" width="250" height="250"></canvas>
-</div>
-
-<div id="memory_board" style="display: none;"></div>
-
-<script src="javascript/timer.js"></script>
-<script src="javascript/loader.js"></script>
+<script src="javascript/highscores.js"></script>
 </body>
 </html>

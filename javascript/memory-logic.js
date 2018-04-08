@@ -18,13 +18,21 @@ Array.prototype.memory_tile_shuffle = function(){
     }
 }
 
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
 function startGame(){
 	var options = document.getElementsByClassName('options');
 	options[0].style.display = 'none';
 	loadingSimulation = setInterval(progressSim, 25);
-	// we need timeout to do not see 100% loaded picture from previous game  
+	// we need timeout to do not see 100% loaded picture from previous game
 	setTimeout("document.getElementById('loader').style.display = 'block';", 75);
-	
 }
 
 // detects how many tile will be on the game board
@@ -170,13 +178,33 @@ function timeFormatting() {
 }
 
 // shows message and reload the game
+function getNameFromPromt(time, size) {
+  var result = prompt("Congratulations! Board cleared! \nYour time is " + time + " for " + size +
+			" pairs. \n\nPlease enter your name to save your score and start a new game.");
+	if (result === null) return null;
+  var validName = true;
+  if (!result.trim()) {
+    validName = confirm("You have provided an empty name! \n\nPress \"Ok\" button if you want to submit an empty name.");
+  }
+  if (validName) {
+    return result.trim();
+  }
+  return getNameFromPromt(time, size);
+}
+
 function winGameSubroutine() {
 	var time = timeFormatting();
+  var result = totalSeconds;
+  var size = memory_array.length;
 	clearInterval(globalTimer);
 	totalSeconds = -1;
 	setTime();
-	alert("Congratulations! Board cleared! \nYour time is " + time + " for " + memory_array.length/2 + 
-			" pairs. \n\nPress \"OK\" button to start a new game.");
+  var name = getNameFromPromt(time, size/2);
+  if (name) {
+    var key = guid();
+    var value = JSON.stringify({ name, result, size, mode:globalGameMode});
+    window.localStorage.setItem(key, value);
+  }
 
 	var board = document.getElementById('memory_board');
 	var timer = document.getElementById('timer');
@@ -221,34 +249,3 @@ function flipToBack(tile) {
 	childBack.style.transform = "perspective( 600px ) rotateY( 180deg )";
 	childFront.style.transform = "perspective( 600px ) rotateY( 0deg )";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
